@@ -1,25 +1,32 @@
 #######################################
-# Syntax Coloring Map For IOShieldTemp
+# Syntax Coloring Map For Test
 #######################################
 
 #######################################
 # Datatypes (KEYWORD1)
 #######################################
 
+WidgetCore	KEYWORD1
+Widget	KEYWORD1
+
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
 
-config	KEYWORD2
+addWidget	KEYWORD2
+removeWidget	KEYWORD2
+Instance	KEYWORD2
+sendData	KEYWORD2
+step	KEYWORD2
+setSpeed	KEYWORD2
+version	KEYWORD2
 
-#######################################
+######################################
 # Instances (KEYWORD2)
 #######################################
+p_instance	KEYWORD2
 
-IOShieldTemp	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
 #######################################
-
-IOSHIELDTEMP_ONESHOT	LITERAL1
