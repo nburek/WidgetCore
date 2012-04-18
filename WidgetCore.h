@@ -1,6 +1,8 @@
 #ifndef WidgetCore_h
 #define WidgetCore_h
 
+#include "WProgram.h"
+
 class WidgetCore
 {
 	public:
