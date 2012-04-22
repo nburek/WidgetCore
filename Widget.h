@@ -1,12 +1,19 @@
-#ifndef Widget_h
-#define Widget_h
+#ifndef Widget
+#define Widget
 
-#include "WProgram.h"
+abstract class Widget{
+private:
+	uint16_t x, y; 
+	int id;
+	char type;
+	intiGraphics();
+public:
+	Widget(uint16_t x, uint16_t y, int type);
+	char getType();
+	void setType(char type);
+	int getID();
+	void setID(int id);
 
-class Widget
-{
-	public:
-		Widget(int type);
-};
+}
 
 #endif
