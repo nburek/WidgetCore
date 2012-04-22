@@ -3,12 +3,10 @@
 
 #include "WProgram.h"
 
-class WidgetCore
+class Widget
 {
 	public:
 		Widget(int type);
-	private:
-		
-}
+};
 
 #endif

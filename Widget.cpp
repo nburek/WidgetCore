@@ -1,4 +1,7 @@
 
 #include "Widget.h"
 
-Widget:Widget(int type);
+Widget::Widget(int type)
+{
+
+}

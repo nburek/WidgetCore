@@ -2,6 +2,7 @@
 #define WidgetShield_h
 
 #include "WProgram.h"
+#include "Widget.h"
 
 #define START_SEND_COMMAND 0x7C
 #define ESCAPE_CHARACTER 0x7D
@@ -19,12 +20,12 @@ class WidgetShield
 		void addWidget(Widget w);
 		void removeWidget(Widget w);
 		void moveWidget(Widget w, uint16_t x, uint16_t y);
-		void sendWidgetCommand(char data[], char length)
+		void sendWidgetCommand(char data[], char length);
 	private:
 		static WidgetShield *p_instance;
 		void sendData(char function, char data[],char length);
 		void uint16ToCharArray(uint16_t i, char* data);
-
-}
+		char receiveByte();
+};
 
 #endif

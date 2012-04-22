@@ -20,27 +20,38 @@ WidgetShield::WidgetShield()
 void WidgetShield::addWidget(Widget w)
 {
 	char data[1];
-	data[0] = w.getType();
-	sendData(ADD_WIDGET_COMMAND,data,0);
-	w.initGraphics();
+	if (w.getID() == NULL)
+	{
+		data[0] = w.getType();
+		sendData(ADD_WIDGET_COMMAND,data,1);
+		w.setID(receiveByte());
+		w.initGraphics();
+	}
 }
+
 void WidgetShield::removeWidget(Widget w)
 {
 	char data[1];
-	data[0] = w.getID();
-	sendData(REMOVE_WIDGET_COMMAND,data,0);
+	if (w.getID() != NULL)
+	{
+		data[0] = w.getID();
+		sendData(REMOVE_WIDGET_COMMAND,data,1);
+		w.setID(NULL);
+	}
 }
 
 void WidgetShield::moveWidget(Widget w, uint16_t x, uint16_t y)
 {
 	char data[5];
 	
-	//get the widget ID here and put it in data[0]
-	//data[0] = w.
-	uint16ToCharArray(x,data+1);
-	uint16ToCharArray(y,data+3);
-	
-	sendData(MOVE_WIDGET_COMMAND,data,5);
+	if (w.getID() != NULL)
+	{
+		data[0] = w.getID();
+		uint16ToCharArray(x,data+1);
+		uint16ToCharArray(y,data+3);
+		
+		sendData(MOVE_WIDGET_COMMAND,data,5);
+	}
 }
 
 void WidgetShield::sendWidgetCommand(char data[], char length)
@@ -59,7 +70,7 @@ void WidgetShield::sendData(char function, char data[],char length)
 		Serial.print(ESCAPE_CHARACTER);
 	Serial.print(length);
 	
-	for (char i = 0; i<length; ++char)
+	for (char i = 0; i<length; ++i)
 	{
 		if (data[i] == START_SEND_COMMAND || data[i]==ESCAPE_CHARACTER)
 			Serial.print(ESCAPE_CHARACTER);
@@ -72,4 +83,11 @@ void WidgetShield::uint16ToCharArray(uint16_t i, char* data)
 {
 	data[0] = (char) (i >> 8);
 	data[1] = (char) (i & 0x0F);
+}
+
+char WidgetShield::receiveByte()
+{
+	while (Serial.available()<=0);
+	
+	return Serial.read();
 }
