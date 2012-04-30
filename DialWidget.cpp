@@ -1,21 +1,24 @@
-#include "Arduino.h"
+#include "WProgram.h"
 #include "DialWidget.h"
+#include "WidgetShield.h"
 
-DialWidget::DialWidget(uint16_t x, uint16_t y, double angle){
+DialWidget::DialWidget(uint16_t x, uint16_t y, uint16_t angle) : Widget(x,y,DIAL_WIDGET_TYPE)
+{
+	
 	this->x = x;
 	this->y = y;
 	this->angle = angle;
-	type = 0x01;
-	id = null;
 }
 
 void DialWidget::redrawNeedle(uint16_t angle){
 	if(angle != this->angle){
 		this->angle = angle;
-		u8 send[2] = {id, angle};
-		WidgetShield.sendWidgetCommand(send, 2);
+		char send[3];
+		send[0] = id;
+		WidgetShield::Instance()->uint16ToCharArray(angle,send+1);
+		WidgetShield::Instance()->sendWidgetCommand(send, 3);
 	}
 }
-void DialWidget::intiGraphics(){
+void DialWidget::initGraphics(){
 	redrawNeedle(0);
 }

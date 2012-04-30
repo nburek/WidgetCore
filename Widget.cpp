@@ -1,15 +1,15 @@
-#include "Arduino.h"
+#include "WProgram.h"
 #include "Widget.h"
 
-Widget::Widget(int x, int y, char type){
+
+Widget::Widget(uint16_t x, uint16_t y, int type){
 	this->x = x;
 	this->y = y;
 	this->type = type;
-	id = null;
-
+	id = NULL;
 }
 
-void Widget::intiGraphics(){
+void Widget::initGraphics(){
 
 }
 char Widget::getType(){
@@ -18,9 +18,9 @@ char Widget::getType(){
 void Widget::setType(char type){
 	this->type = type;
 }
-int Widget::getID(){
+char Widget::getID(){
 	return(id);
 }
-void Widget::setID(int id){
+void Widget::setID(char id){
 	this->id = id;
 }

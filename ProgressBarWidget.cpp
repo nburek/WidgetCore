@@ -1,21 +1,21 @@
-#include "Arduino.h"
+#include "WProgram.h"
 #include "ProgressBarWidget.h"
+#include "WidgetShield.h"
 
-ProgressBarWidget::ProgressBarWidget(uint16_t x, uint16_t y, int progress){
+ProgressBarWidget::ProgressBarWidget(uint16_t x, uint16_t y, char progress) : Widget(x,y,PROGRESS_BAR_WIDGET_TYPE)
+{
 	this->x = x;
 	this->y = y;
 	this->progress = progress;
-	type = 0x02;
-	id = null;
 }
 
-void ProgressBarWidget::redrawBar(int progress){
+void ProgressBarWidget::redrawBar(char progress){
 	if(progress != this->progress){
 		this->progress = progress;
-		u8 send[2] = {id, progress};
-		WidgetShield.sendWidgetCommand(send, 2);
+		char send[2] = {id, progress};
+		WidgetShield::Instance()->sendWidgetCommand(send, 2);
 	}
 }
-void ProgressBarWidget::intiGraphics(){
+void ProgressBarWidget::initGraphics(){
 	redrawBar(0);
 }

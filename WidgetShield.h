@@ -17,14 +17,14 @@ class WidgetShield
 	public:
 		WidgetShield();
 		static WidgetShield* Instance();
-		void addWidget(Widget w);
-		void removeWidget(Widget w);
-		void moveWidget(Widget w, uint16_t x, uint16_t y);
+		void addWidget(Widget* w);
+		void removeWidget(Widget* w);
+		void moveWidget(Widget* w, uint16_t x, uint16_t y);
 		void sendWidgetCommand(char data[], char length);
+		void uint16ToCharArray(uint16_t i, char* data);
 	private:
 		static WidgetShield *p_instance;
 		void sendData(char function, char data[],char length);
-		void uint16ToCharArray(uint16_t i, char* data);
 		char receiveByte();
 };
 

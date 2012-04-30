@@ -1,12 +1,15 @@
-#ifndef ProgressBarWidget
-#define ProgressBarWidget
+#ifndef ProgressBarWidget_h
+#define ProgressBarWidget_h
 
 #include "Widget.h"
+
 class ProgressBarWidget : public Widget{
 private:
-	unsigned int progress;
+	char progress;
 public:
-	void redrawBar(int progress);
-}
+	ProgressBarWidget(uint16_t x, uint16_t y, char progress);
+	void redrawBar(char progress);
+	void initGraphics();
+};
 
 #endif

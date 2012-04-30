@@ -1,19 +1,25 @@
-#ifndef Widget
-#define Widget
+#ifndef Widget_h
+#define Widget_h
 
-abstract class Widget{
-private:
+#define DIAL_WIDGET_TYPE 0x01
+#define PROGRESS_BAR_WIDGET_TYPE 0x02
+#define LIGHT_WIDGET_TYPE 0x03
+
+
+class Widget
+{
+protected:
 	uint16_t x, y; 
-	int id;
 	char type;
-	intiGraphics();
+	char id;
 public:
 	Widget(uint16_t x, uint16_t y, int type);
 	char getType();
 	void setType(char type);
-	int getID();
-	void setID(int id);
+	char getID();
+	void setID(char id);
+	virtual void initGraphics();
 
-}
+};
 
 #endif

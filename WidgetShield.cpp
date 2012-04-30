@@ -17,36 +17,36 @@ WidgetShield::WidgetShield()
 	Serial.begin(9600);
 }
 
-void WidgetShield::addWidget(Widget w)
+void WidgetShield::addWidget(Widget* w)
 {
 	char data[1];
-	if (w.getID() == NULL)
+	if (w->getID() == NULL)
 	{
-		data[0] = w.getType();
+		data[0] = w->getType();
 		sendData(ADD_WIDGET_COMMAND,data,1);
-		w.setID(receiveByte());
-		w.initGraphics();
+		w->setID(receiveByte());
+		w->initGraphics();
 	}
 }
 
-void WidgetShield::removeWidget(Widget w)
+void WidgetShield::removeWidget(Widget* w)
 {
 	char data[1];
-	if (w.getID() != NULL)
+	if (w->getID() != NULL)
 	{
-		data[0] = w.getID();
+		data[0] = w->getID();
 		sendData(REMOVE_WIDGET_COMMAND,data,1);
-		w.setID(NULL);
+		w->setID(NULL);
 	}
 }
 
-void WidgetShield::moveWidget(Widget w, uint16_t x, uint16_t y)
+void WidgetShield::moveWidget(Widget* w, uint16_t x, uint16_t y)
 {
 	char data[5];
 	
-	if (w.getID() != NULL)
+	if (w->getID() != NULL)
 	{
-		data[0] = w.getID();
+		data[0] = w->getID();
 		uint16ToCharArray(x,data+1);
 		uint16ToCharArray(y,data+3);
 		
