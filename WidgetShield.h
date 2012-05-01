@@ -1,19 +1,27 @@
+ /*
+ *WidgetShield.h
+ *Created By: Nick Burek
+ *Date of Creation:
+ *Date of last edit: 4/25/12
+ */
+
 #ifndef WidgetShield_h
 #define WidgetShield_h
 
 #include "WProgram.h"
 #include "Widget.h"
 
-#define START_SEND_COMMAND 0x7C
-#define ESCAPE_CHARACTER 0x7D
-#define ADD_WIDGET_COMMAND 0x01
-#define REMOVE_WIDGET_COMMAND 0x02
-#define MOVE_WIDGET_COMMAND 0x03
-#define SEND_WIDGET_COMMAND 0x04 
+#define START_SEND_COMMAND (char)0x7C
+#define ESCAPE_CHARACTER (char)0x7D
+#define ADD_WIDGET_COMMAND (char)0x01
+#define REMOVE_WIDGET_COMMAND (char)0x02
+#define MOVE_WIDGET_COMMAND (char)0x03
+#define SEND_WIDGET_COMMAND (char)0x04 
 
 
 class WidgetShield
 {
+	//class member declarations
 	public:
 		WidgetShield();
 		static WidgetShield* Instance();
