@@ -69,8 +69,8 @@ void WidgetShield::moveWidget(Widget* w, uint16_t x, uint16_t y)
 	// Create array to send data
 	char data[5];
 	
-	if (w->getID() != NULL)
-	{
+	//if (w->getID() != NULL)
+	//{
 		//Define array elements
 		data[0] = w->getID();
 		// each uint16_t takes two bytes and therefore two array indices
@@ -78,7 +78,7 @@ void WidgetShield::moveWidget(Widget* w, uint16_t x, uint16_t y)
 		uint16ToCharArray(y,data+3);
 		// send data
 		sendData(MOVE_WIDGET_COMMAND,data,5);
-	}
+	//}
 }
 
 // Defines how to send a Widget Command
@@ -87,30 +87,37 @@ void WidgetShield::sendWidgetCommand(char data[], char length)
 	sendData(SEND_WIDGET_COMMAND,data,length);
 }
 
+void WidgetShield::resetWidgetShield()
+{
+	char data[1] = {0};
+	sendData(RESET_WIDGET_SHIELD, data, 0);
+}
+
 void WidgetShield::sendData(char function, char data[],char length)
 {
 	//need to first send the start command and length
-	Serial.print(START_SEND_COMMAND);
+	Serial.write(START_SEND_COMMAND);
+	
 	//After sending start command make sure function command is not a start command or the escape character.
 	//if it is then escape the character
 	if ((function == START_SEND_COMMAND) || (function == ESCAPE_CHARACTER))
-		Serial.print(ESCAPE_CHARACTER);
-	
+		Serial.write(ESCAPE_CHARACTER);
 	//send the function command
-	Serial.print(function);
+	Serial.write(function);
+	
 	//Similarly escape out the length
 	if (length == START_SEND_COMMAND || length == ESCAPE_CHARACTER)
-		Serial.print(ESCAPE_CHARACTER);
+		Serial.write(ESCAPE_CHARACTER);
 	//send the length
-	Serial.print(length);
+	Serial.write(length);
 
 	
 	for (char i = 0; i<length; ++i)
 	{
 		//send the rest of the data escaping as needed
 		if (data[i] == START_SEND_COMMAND || data[i]==ESCAPE_CHARACTER)
-			Serial.print(ESCAPE_CHARACTER);
-		Serial.print(data[i]);
+			Serial.write(ESCAPE_CHARACTER);
+		Serial.write(data[i]);
 	}
 
 }
@@ -119,7 +126,7 @@ void WidgetShield::sendData(char function, char data[],char length)
 void WidgetShield::uint16ToCharArray(uint16_t i, char* data)
 {
 	data[0] = (char) (i >> 8);
-	data[1] = (char) (i & 0x0F);
+	data[1] = (char) (i & 0xFF);
 }
 
 //When called waits for the UART connection to send data and reads from that data.

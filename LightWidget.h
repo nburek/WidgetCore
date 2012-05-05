@@ -21,6 +21,7 @@ public:
 	LightWidget(uint16_t x, uint16_t y, char status);
 	void changeStatus();
 	char getStatus();
+	void initGraphics();
 };
 
 #endif

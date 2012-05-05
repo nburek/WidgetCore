@@ -33,11 +33,12 @@ void DialWidget::redrawNeedle(uint16_t angle){
 		//next two indices are reserved for the new angle
 		WidgetShield::Instance()->uint16ToCharArray(angle,send+2);
 		// send the widget command.
-		WidgetShield::Instance()->sendWidgetCommand(send, 3);
+		WidgetShield::Instance()->sendWidgetCommand(send, 4);
 	}
 }
 
 // set needle to position 0 for the inital draw
 void DialWidget::initGraphics(){
-	redrawNeedle(0);
+	WidgetShield::Instance()->moveWidget(this, x, y);
+	redrawNeedle(angle);
 }

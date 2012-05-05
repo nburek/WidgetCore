@@ -7,6 +7,7 @@
 
 #include "WProgram.h"
 #include "Widget.h"
+#include "WidgetShield.h"
 
 
 // declares a basic constructor which sets x, y, and type to starting values.  Automatically sets id to null
@@ -20,7 +21,6 @@ Widget::Widget(uint16_t x, uint16_t y, char type){
 //Blank initialization of graphics allows the widgetShield class to call it with no consequence.
 //Overridden in specific widget class as needed
 void Widget::initGraphics(){
-
 }
 
 //Standard get and set functions for type and ID

@@ -17,6 +17,7 @@
 #define REMOVE_WIDGET_COMMAND (char)0x02
 #define MOVE_WIDGET_COMMAND (char)0x03
 #define SEND_WIDGET_COMMAND (char)0x04 
+#define RESET_WIDGET_SHIELD (char)0x05
 
 
 class WidgetShield
@@ -30,6 +31,7 @@ class WidgetShield
 		void moveWidget(Widget* w, uint16_t x, uint16_t y);
 		void sendWidgetCommand(char data[], char length);
 		void uint16ToCharArray(uint16_t i, char* data);
+		void resetWidgetShield();
 	private:
 		static WidgetShield *p_instance;
 		void sendData(char function, char data[],char length);

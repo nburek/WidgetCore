@@ -26,16 +26,23 @@ void LightWidget::changeStatus(){
 		char command = 0x02;
 		//if it is then turn it on and send on command to shield
 		status = 0x01;
-		char send[3] = {id, command, status};
-		WidgetShield::Instance()->sendWidgetCommand(send, 2);
+		char send[3];
+		send[0] = id;
+		send[1] = 0x02;
+		send[2] = status;
+
+		WidgetShield::Instance()->sendWidgetCommand(send, 3);
 	}else{
 		char command = 0x02;
 		//else it must be on so turn it off and send off command to shield
 		status = 0x00;
 		char send[3] = {id, command, status};
-		WidgetShield::Instance()->sendWidgetCommand(send, 2);
+		WidgetShield::Instance()->sendWidgetCommand(send, 3);
 	}
 }
 char LightWidget::getStatus(){
 	return (this->status);
+}
+void LightWidget::initGraphics(){
+	WidgetShield::Instance()->moveWidget(this, x, y);
 }

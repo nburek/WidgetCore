@@ -24,11 +24,12 @@ void ProgressBarWidget::redrawBar(char progress){
 		char command = 0x02;
 		this->progress = progress;
 		char send[3] = {id, command, progress};
-		WidgetShield::Instance()->sendWidgetCommand(send, 2);
+		WidgetShield::Instance()->sendWidgetCommand(send, 3);
 	}
 }
 
 //Overrides the standard intiGraphics function to auto sets the bar to 0
 void ProgressBarWidget::initGraphics(){
-	redrawBar(0);
+	WidgetShield::Instance()->moveWidget(this, x, y);
+	redrawBar(progress + 1);
 }
