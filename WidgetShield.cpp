@@ -95,30 +95,41 @@ void WidgetShield::resetWidgetShield()
 
 void WidgetShield::sendData(char function, char data[],char length)
 {
+	unsigned char checksum = START_SEND_COMMAND;
 	//need to first send the start command and length
 	Serial.write(START_SEND_COMMAND);
 	
 	//After sending start command make sure function command is not a start command or the escape character.
 	//if it is then escape the character
-	if ((function == START_SEND_COMMAND) || (function == ESCAPE_CHARACTER))
+	if ((function == START_SEND_COMMAND) || (function == ESCAPE_CHARACTER)){
 		Serial.write(ESCAPE_CHARACTER);
+		checksum ^= ESCAPE_CHARACTER;
+	}
 	//send the function command
 	Serial.write(function);
+	checksum ^= function;
 	
 	//Similarly escape out the length
-	if (length == START_SEND_COMMAND || length == ESCAPE_CHARACTER)
+	if (length == START_SEND_COMMAND || length == ESCAPE_CHARACTER){
 		Serial.write(ESCAPE_CHARACTER);
+		checksum ^= ESCAPE_CHARACTER;
+	}
 	//send the length
 	Serial.write(length);
-
+	checksum ^= length;
 	
 	for (char i = 0; i<length; ++i)
 	{
 		//send the rest of the data escaping as needed
-		if (data[i] == START_SEND_COMMAND || data[i]==ESCAPE_CHARACTER)
+		if (data[i] == START_SEND_COMMAND || data[i]==ESCAPE_CHARACTER){
 			Serial.write(ESCAPE_CHARACTER);
+			checksum ^= ESCAPE_CHARACTER;
+		}
 		Serial.write(data[i]);
+		checksum ^= data[i];
 	}
+	
+	//Serial.write(checksum);
 
 }
 
